@@ -1,15 +1,17 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Header from './components/header'
 import { ProtectedRoute, PublicRoute } from './components/route-guard'
-import { AuthProvider } from './contexts/AuthContext'
 import CreateNote from './pages/create-note'
 import Dashboard from './pages/dashboard'
+import EditProfile from './pages/edit-profile'
 import Login from './pages/login'
+import NotFound from './pages/not-found'
+import Profile from './pages/profile'
 import Register from './pages/register'
 
 function App() {
   return (
-    <AuthProvider>
+    <>
       <Header />
       <Routes>
         <Route path='/' element={<Navigate to='/dashboard' />} />
@@ -32,6 +34,24 @@ function App() {
         />
 
         <Route
+          path='/profile'
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/edit-profile'
+          element={
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path='/login'
           element={
             <PublicRoute>
@@ -47,8 +67,10 @@ function App() {
             </PublicRoute>
           }
         />
+
+        <Route path='*' element={<NotFound />} />
       </Routes>
-    </AuthProvider>
+    </>
   )
 }
 

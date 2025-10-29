@@ -104,10 +104,16 @@ function Login() {
                 />
 
                 <div className='flex items-center justify-end'>
-                  <span className='text-secondary -mt-1 text-sm'>Forgot password?</span>
+                  <span className='text-primary -mt-1 text-sm'>Forgot password?</span>
                 </div>
 
-                <Button type='submit' disabled={isPending} className='w-full' size='lg'>
+                <Button
+                  variant='secondary'
+                  type='submit'
+                  disabled={isPending}
+                  className='w-full'
+                  size='lg'
+                >
                   {isPending ? (
                     <>
                       <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -123,7 +129,7 @@ function Login() {
             <div className='mt-6'>
               <p className='bg-card text-muted-foreground px-2 text-center text-sm'>
                 Don't have an account?{' '}
-                <Link to='/register' className='text-secondary font-semibold'>
+                <Link to='/register' className='text-primary font-semibold'>
                   Sign up
                 </Link>
               </p>

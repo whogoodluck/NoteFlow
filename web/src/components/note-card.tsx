@@ -19,13 +19,8 @@ function NoteCard({ note }: NoteCardProps) {
         <NavLink to={`/notes/${note.id}`}>
           <CardTitle className='line-clamp-2'>{note.title}</CardTitle>
         </NavLink>
-        <div className='flex items-center gap-4'>
-          <div className='flex items-center text-sm'>
-            <Dot size={24} className='text-foreground' />
-            {formatTimeAgo(new Date(note.createdAt))}
-          </div>
-          <ManageNote note={note} />
-        </div>
+
+        <ManageNote note={note} />
       </CardHeader>
       <CardContent>
         <NavLink to={`/notes/${note.id}`}>
@@ -34,6 +29,10 @@ function NoteCard({ note }: NoteCardProps) {
       </CardContent>
       <CardFooter className='flex items-center gap-2'>
         <Badge className='text-primary bg-secondary'>{note.author.username}</Badge>
+        <div className='flex items-center text-sm'>
+          <Dot size={24} className='text-foreground' />
+          {formatTimeAgo(new Date(note.createdAt))}
+        </div>
       </CardFooter>
     </Card>
   )

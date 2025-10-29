@@ -12,6 +12,8 @@ userRouter.get('/me', auth.requireAuth, userController.validateToken)
 
 userRouter.get('/', auth.requireAuth, userController.getUsers)
 
+userRouter.put('/update-profile', auth.requireAuth, userController.UpdateProfile)
+
 userRouter.get('/:username', userController.getUserByUsername)
 
 export default userRouter

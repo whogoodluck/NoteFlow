@@ -4,19 +4,10 @@ import { useGetAllNotes } from '@/hooks/useNote'
 import type { Note } from '@/types/note'
 
 function Dashboard() {
-  // const { user } = useAuthContext()
-  // const { mutate, isPending } = useLogout()
-
-  // const handleLogout = () => mutate()
-
-  const { data, isPending, isError } = useGetAllNotes()
+  const { data, isPending } = useGetAllNotes()
 
   if (isPending) {
     return <Loading />
-  }
-
-  if (isError) {
-    return <h1>Error</h1>
   }
 
   const notes: Note[] = data.data || []

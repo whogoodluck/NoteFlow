@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { getToken } from '../lib/utils'
-import type { LoginSchema, RegisterSchema } from '../schemas/user.schema'
+import type { LoginSchema, RegisterSchema, UpdateUserSchema } from '../schemas/user.schema'
 
 const baseUrl = '/api/users'
 
@@ -46,8 +46,8 @@ export const getUserById = async (userId: string) => {
   return res.data
 }
 
-export const getUserByUsername = async (username: string) => {
-  const res = await axios.get(`${baseUrl}/${username}`, {
+export const UpdateProfile = async (data: UpdateUserSchema) => {
+  const res = await axios.put(`${baseUrl}/update-profile`, data, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },

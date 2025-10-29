@@ -21,6 +21,4 @@ export type RegisterSchema = z.infer<typeof registerSchema> & {
   username: string
 }
 export type LoginSchema = z.infer<typeof loginSchema>
-export type UpdateUserSchema = z.infer<typeof updateUserSchema> & {
-  userId: string
-}
+export type UpdateUserSchema = z.infer<typeof updateUserSchema>

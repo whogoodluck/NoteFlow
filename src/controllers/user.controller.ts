@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { ExpressRequest } from '../middlewares/auth'
-import { loginSchema, registerSchema } from '../schemas/user.schema'
+import { loginSchema, registerSchema, updateUserSchema } from '../schemas/user.schema'
 import userService from '../services/user.service'
 import { HttpError } from '../utils/http-error'
 
@@ -126,6 +126,28 @@ async function getUserByUsername(req: Request, res: Response, next: NextFunction
   }
 }
 
+async function UpdateProfile(req: ExpressRequest, res: Response, next: NextFunction) {
+  try {
+    const payload = updateUserSchema.parse(req.body)
+
+    const user = await userService.getOneById(req.user!.id)
+
+    if (!user) {
+      throw new HttpError(404, 'User not found')
+    }
+
+    const updatedUser = await userService.updateUserById(user.id, payload)
+
+    res.status(200).json({
+      status: 'success',
+      message: 'User updated successfully',
+      data: updatedUser,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
 export default {
   register,
   login,
@@ -133,4 +155,5 @@ export default {
   getUsers,
   validateToken,
   getUserByUsername,
+  UpdateProfile,
 }

@@ -34,6 +34,8 @@ function ManageNote({ note }: { note: Note }) {
     deleteBug(note.id)
   }
 
+  if (!user || user.id !== note.authorId) return null
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -76,18 +78,15 @@ function ManageNote({ note }: { note: Note }) {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-
-        {user && user.id === note.authorId && (
-          <Dialog>
-            <DialogTrigger className='flex cursor-pointer items-center gap-2'>
-              <EditIcon size={16} /> Edit
-            </DialogTrigger>
-            <DialogContent>
-              <DialogTitle className='text-center'>Update Note</DialogTitle>
-              <NoteForm formType='update' note={note} />
-            </DialogContent>
-          </Dialog>
-        )}
+        <Dialog>
+          <DialogTrigger className='flex cursor-pointer items-center gap-2'>
+            <EditIcon size={16} /> Edit
+          </DialogTrigger>
+          <DialogContent>
+            <DialogTitle className='text-center'>Update Note</DialogTitle>
+            <NoteForm formType='update' note={note} />
+          </DialogContent>
+        </Dialog>
       </DropdownMenuContent>
     </DropdownMenu>
   )

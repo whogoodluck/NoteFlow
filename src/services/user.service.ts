@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { prisma } from '../lib/prisma'
 import { JWTPayload } from '../middlewares/auth'
-import { RegisterSchema } from '../schemas/user.schema'
+import { RegisterSchema, UpdateUserSchema } from '../schemas/user.schema'
 import config from '../utils/config'
 
 async function hashPassword(password: string) {
@@ -89,6 +89,20 @@ async function getOneByUsername(username: string) {
   return user
 }
 
+async function updateUserById(id: string, data: UpdateUserSchema) {
+  const user = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: data,
+    omit: {
+      password: true,
+    },
+  })
+
+  return user
+}
+
 export default {
   hashPassword,
   verifyPassword,
@@ -99,4 +113,5 @@ export default {
   getOneById,
   getOneByEmail,
   getOneByUsername,
+  updateUserById,
 }

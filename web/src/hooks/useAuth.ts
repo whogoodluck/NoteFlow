@@ -1,9 +1,10 @@
+import type { UpdateUserSchema } from '@/schemas/user.schema'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useAuthContext } from '../contexts/AuthContext'
 import { setToken } from '../lib/utils'
-import { getUserByUsername, login, logout, register, validateToken } from '../services/user'
+import { login, logout, register, UpdateProfile, validateToken } from '../services/user'
 
 export function useLogin() {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ export function useLogin() {
     mutationFn: login,
     onSuccess: data => {
       setToken(data.data.token)
-      setUser(data.data.user)
+      setUser(data.data)
       navigate('/dashboard')
 
       toast.success('Login successful!')
@@ -32,7 +33,7 @@ export function useRegister() {
     mutationFn: register,
     onSuccess: data => {
       setToken(data.data.token)
-      setUser(data.data.user)
+      setUser(data.data)
       navigate('/dashboard')
       toast.success('Registration successful!')
     },
@@ -63,9 +64,19 @@ export function useGetMyProfile() {
   })
 }
 
-export function useGetUserProfileByUsername(username: string) {
-  return useQuery({
-    queryKey: ['profile'],
-    queryFn: () => getUserByUsername(username),
+export function useUpdateProfile() {
+  const { setUser } = useAuthContext()
+  const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: (data: UpdateUserSchema) => UpdateProfile(data),
+    onSuccess: data => {
+      setUser(data.data)
+      navigate('/profile')
+      toast.success('Profile updated successfully!')
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data.message || error.message)
+    },
   })
 }

@@ -127,7 +127,13 @@ function Register() {
                   )}
                 />
 
-                <Button type='submit' disabled={isPending} className='w-full' size='lg'>
+                <Button
+                  variant='secondary'
+                  type='submit'
+                  disabled={isPending}
+                  className='w-full'
+                  size='lg'
+                >
                   {isPending ? (
                     <>
                       <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -143,7 +149,7 @@ function Register() {
             <div className='mt-6'>
               <p className='bg-card text-muted-foreground px-2 text-center text-sm'>
                 Already have an account?{' '}
-                <Link to='/login' className='text-secondary font-semibold'>
+                <Link to='/login' className='text-primary font-semibold'>
                   login
                 </Link>
               </p>
