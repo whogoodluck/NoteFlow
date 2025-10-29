@@ -71,12 +71,12 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-function logout(req: ExpressRequest, res: Response) {
-  if (!req.user) {
-    throw new HttpError(401, 'Authentication required')
+function logout(_req: Request, res: Response, next: NextFunction) {
+  try {
+    res.status(200).json({ status: 'success', message: 'User logged out successfully' })
+  } catch (err) {
+    next(err)
   }
-
-  res.status(200).json({ status: 'success', message: 'User logged out successfully' })
 }
 
 async function getUsers(_req: Request, res: Response, next: NextFunction) {
