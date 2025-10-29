@@ -16,16 +16,11 @@ function NoteCard({ note }: NoteCardProps) {
   return (
     <Card style={{ backgroundColor: note.backgroundColor }} className='border shadow-none'>
       <CardHeader className='flex items-center justify-between'>
-        <NavLink to={`/notes/${note.id}`}>
           <CardTitle className='line-clamp-2'>{note.title}</CardTitle>
-        </NavLink>
-
         <ManageNote note={note} />
       </CardHeader>
       <CardContent>
-        <NavLink to={`/notes/${note.id}`}>
-          <article className='text-foreground line-clamp-3 text-sm'>{note.content}</article>{' '}
-        </NavLink>
+          <article className='text-foreground text-sm'>{note.content}</article>
       </CardContent>
       <CardFooter className='flex items-center gap-2'>
         <Badge className='text-primary bg-secondary'>{note.author.username}</Badge>
