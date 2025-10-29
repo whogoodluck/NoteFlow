@@ -2,6 +2,7 @@ import cors from 'cors'
 import express, { Request, Response } from 'express'
 import morgan from 'morgan'
 
+import noteRouter from './routes/note.route'
 import userRouter from './routes/user.route'
 
 import errorHandler from './middlewares/error-handler'
@@ -19,6 +20,7 @@ app.get('/', (_req: Request, res: Response) => {
 })
 
 app.use('/api/users', userRouter)
+app.use('/api/notes', noteRouter)
 
 app.use(errorHandler)
 app.use(unknownEndpoint)

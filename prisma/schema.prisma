@@ -8,15 +8,30 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  username      String?        @unique
-  password      String         
-  name          String
-  bio           String?        @db.VarChar(500)
-  picture       String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  id              String         @id @default(cuid())
+  email           String         @unique
+  username        String?        @unique
+  password        String         
+  name            String
+  bio             String?        @db.VarChar(500)
+  picture         String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  notes           Note[]
 
   @@map("users")
+}
+
+model Note {
+  id              String         @id @default(cuid())
+  title           String
+  content         String
+  backgroundColor String         @default("#f5f5f5")
+  authorId        String         
+  author          User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@map("notes")
 }
