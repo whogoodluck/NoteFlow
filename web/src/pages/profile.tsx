@@ -41,9 +41,12 @@ function Profile() {
           </div>
 
           <div>
-            <Link to='/edit-profile' className={cn(buttonVariants({ variant: 'outline' }))}>
+            <Link
+              to='/edit-profile'
+              className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
+            >
               <User2 className='mr-2 h-4 w-4' />
-              Edit
+              Edit Profile
             </Link>
           </div>
         </div>

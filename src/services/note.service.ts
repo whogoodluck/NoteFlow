@@ -35,6 +35,41 @@ async function getAllNotes() {
   return notes
 }
 
+async function getNotesByQuery(query: string) {
+  const whereClause: any = {
+    OR: [
+      {
+        title: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+      {
+        content: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+    ],
+  }
+
+  const notes = await prisma.note.findMany({
+    where: whereClause,
+    include: {
+      author: {
+        omit: {
+          password: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+
+  return notes
+}
+
 async function getNotesByAuthorId(authorId: string) {
   const notes = await prisma.note.findMany({
     where: {
@@ -105,6 +140,7 @@ async function deleteNote(id: string) {
 export default {
   createNote,
   getAllNotes,
+  getNotesByQuery,
   getNotesByAuthorId,
   getOneById,
   updateNote,

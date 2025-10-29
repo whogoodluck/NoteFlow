@@ -63,3 +63,13 @@ export const deleteNote = async (noteId: string) => {
 
   return res.data
 }
+
+export const searchNotes = async (query: string) => {
+  const res = await axios.get(`${baseUrl}/search?q=${query}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+
+  return res.data
+}

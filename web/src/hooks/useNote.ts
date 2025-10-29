@@ -8,6 +8,7 @@ import {
   getMyNotes,
   getNoteById,
   getNotes,
+  searchNotes,
   updateNote,
 } from '../services/note'
 
@@ -82,5 +83,14 @@ export function useDeleteNote() {
     onError: (error: any) => {
       toast.error(error.response?.data.message || error.message)
     },
+  })
+}
+
+export function useSearchNotes(query: string) {
+  return useQuery({
+    queryKey: ['notes', 'search', query],
+    queryFn: () => searchNotes(query),
+    enabled: query.trim().length > 0,
+    staleTime: 30000,
   })
 }

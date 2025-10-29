@@ -72,6 +72,26 @@ async function getMyNotes(req: ExpressRequest, res: Response, next: NextFunction
   }
 }
 
+async function searchNotes(req: ExpressRequest, res: Response, next: NextFunction) {
+  try {
+    const { q } = req.query
+
+    if (!q || typeof q !== 'string' || q.trim().length === 0) {
+      throw new HttpError(400, 'Search query is required')
+    }
+
+    const notes = await noteService.getNotesByQuery(q.trim())
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Notes searched successfully',
+      data: notes,
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
 async function getNoteById(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params
@@ -151,6 +171,7 @@ export default {
   createNote,
   getAllNotes,
   getMyNotes,
+  searchNotes,
   getNoteById,
   updateNote,
   deleteNote,
