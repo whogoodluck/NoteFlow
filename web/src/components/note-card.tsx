@@ -1,5 +1,4 @@
 import { Dot } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
 
 import { formatTimeAgo } from '@/lib/utils'
 import type { Note } from '@/types/note'
